@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+/* Design token palette */
+:root {
+  /* Pastel palette: blues, greens, beiges with crimson accent */
+  --palette-1: #E8F6F9; /* very pale blue */
+  --palette-2: #DFF3EC; /* very pale green */
+  --palette-3: #F5F2EA; /* warm beige */
+  --palette-4: #9CCBD9; /* pastel teal/blue */
+  --palette-5: #A7D3B8; /* pastel mint/green */
+  /* Soft lavender for primary actions (replaces bright green/purple) */
+  --palette-lavender: #CBB7FF; /* soft pastel lavender */
+  /* fallback dark text token */
+  --palette-6: #073144; /* deep teal-ish for readable text */
+
+  /* Semantic tokens */
+  --color-bg: var(--palette-3);
+  --color-surface: var(--palette-1);
+  --color-muted: #6b7280;
+  --color-border: rgba(15,23,42,0.04);
+
+  /* Use lavender as the primary UI color now */
+  --color-primary: var(--palette-lavender);
+  --color-secondary: var(--palette-5);
+
+  /* Accent (crimson - used sparingly for blood actions) */
+  --color-accent: #9b111e; /* deep crimson (subtle) */
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Keep global resets but use palette variables */
+/* Keep inputs interactive and visible */
+input, select, textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--color-bg);
+  color: #0f172a; /* gray-900 */
+  border: 1px solid var(--color-border);
+  pointer-events: auto;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  font-size: 15px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 3px solid rgba(239,68,68,0.12); /* subtle red glow */
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 18px rgba(37,99,235,0.08);
+}
+
+input::placeholder, textarea::placeholder {
+  color: #9ca3af;
+}
+
+select option {
+  background-color: var(--color-bg);
+  color: #0f172a;
+}
+
+button {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.bb-header {
+  background: linear-gradient(90deg, var(--palette-1), var(--palette-4));
+  color: var(--palette-6);
+}
+.bb-card {
+  background: linear-gradient(180deg, var(--color-bg), var(--color-surface));
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+}
+.bb-btn-primary {
+  /* Primary actions use soft lavender for a calming look */
+  background-color: var(--color-primary);
+  color: #2b2540; /* dark text for contrast on lavender */
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+}
+.bb-btn-accent {
+  /* Crimson accent for important actions */
+  background-color: var(--color-accent);
+  color: white;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+}
+.bb-badge {
+  background-color: rgba(239,68,68,0.08);
+  color: var(--color-accent);
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+/* More vivid stat cards and interactive polish */
+.stat-card {
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  color: #09203f; /* deep slate for text on pastel backgrounds */
+  box-shadow: 0 8px 26px rgba(9,16,23,0.06);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.stat-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(9,16,23,0.08); }
+
+.stat-donors {
+  background: linear-gradient(135deg, var(--palette-3), var(--palette-4));
+}
+.stat-recipients {
+  background: linear-gradient(135deg, var(--palette-1), var(--palette-5));
+}
+.stat-units {
+  background: linear-gradient(135deg, var(--palette-5), var(--palette-3));
+}
+.stat-donations {
+  background: linear-gradient(135deg, var(--palette-4), var(--palette-1));
+}
+
+/* Buttons: stronger presence + hover */
+.bb-btn-primary {
+  background-color: var(--color-primary);
+  color: #2b2540;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 8px 24px rgba(75,47,128,0.06);
+}
+.bb-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(75,47,128,0.10); }
+
+.bb-btn-accent {
+  background-color: var(--color-accent);
+  color: white;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 8px 24px rgba(155,17,30,0.08);
+}
+.bb-btn-accent:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(155,17,30,0.12); }
+
+/* Make header/site title and logo use the deep crimson so it's readable */
+.bb-header .logo,
+.bb-header .brand,
+.bb-header h1,
+.bb-header h2,
+.bb-header .subtitle,
+.bb-header .site-title {
+  color: var(--color-accent) !important;
+}
+.bb-header svg {
+  fill: var(--color-accent) !important;
+  stroke: var(--color-accent) !important;
+}
+/* If the logo is an img (raster), it's best to replace it with an inline SVG so the color can follow text color.
+   As a fallback, remove heavy filters so it doesn't look washed out. */
+.bb-header img.logo { filter: none; }
+
+/* Header stronger presence */
+.bb-header { padding: 1.25rem 0; box-shadow: 0 6px 24px rgba(15,23,42,0.12); }
+
+/* Make the small subtitle ("Saving Lives") very readable */
+.bb-header .subtitle,
+.bb-header .saving-lives {
+  color: #000000 !important;
+  opacity: 1 !important;
+}
